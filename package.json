@@ -22,6 +22,8 @@
     "migrate": "prisma migrate dev --name init"
   },
   "dependencies": {
+    "@fastify/helmet": "^13.0.1",
+    "@fastify/rate-limit": "^10.3.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
