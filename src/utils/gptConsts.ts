@@ -13,10 +13,7 @@ Sempre responda no seguinte formato JSON:
       "proteinas_g": 1.0,
       "gorduras_g": 0.3,
       "fibras_g": 2.6,
-      "calcio_mg": 6,
-      "ferro_mg": 0.3,
       "sodio_mg": 1,
-      "vitamina_c_mg": 8.7,
       "fonte": "TACO"
     }
   ],
@@ -27,12 +24,15 @@ Sempre responda no seguinte formato JSON:
     "proteinas_g": 2.0,
     "gorduras_g": 0.6,
     "fibras_g": 5.2,
-    "calcio_mg": 12,
-    "ferro_mg": 0.6,
     "sodio_mg": 2,
-    "vitamina_c_mg": 17.4
   }
 }
+
+Se um erro acontecer, comecer o json com "Error:" ou "Warning:" seguido do erro encontrado. Exemplo:
+{
+  "Error": "Error ao processar a requisição"
+}
+
 Se mais de um item for mencionado, preencha a lista itens com cada alimento individualmente e calcule os valores totais na seção total.
 `
 
