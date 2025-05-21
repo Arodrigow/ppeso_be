@@ -15,6 +15,17 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
+CREATE TABLE "PesoHistorico" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "peso" REAL NOT NULL,
+    "data" DATETIME NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" DATETIME NOT NULL,
+    CONSTRAINT "PesoHistorico_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
 CREATE TABLE "Item" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "alimento" TEXT,
@@ -50,7 +61,7 @@ CREATE TABLE "Meal" (
 -- CreateTable
 CREATE TABLE "Daily" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "data" TEXT NOT NULL,
+    "data" DATETIME NOT NULL,
     "userId" INTEGER NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL,
@@ -62,6 +73,9 @@ CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "PesoHistorico_id_key" ON "PesoHistorico"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Item_id_key" ON "Item"("id");
