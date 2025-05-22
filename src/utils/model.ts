@@ -5,7 +5,7 @@ import { gptResponseFilter } from "./gptResponseFilter";
 export const chatGPT = async (data: string) => {
     const token = process.env.OPENAI_API_KEY;
     const endpoint = "https://models.inference.ai.azure.com";
-    const modelName = "gpt-4o";
+    const modelName = "gpt-35-turbo";
 
     const client = new OpenAI({ baseURL: endpoint, apiKey: token });
 
