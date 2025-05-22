@@ -19,20 +19,21 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @unique @default(autoincrement())
-  email      String   @unique
-  password   String
-  nome       String
-  sobrenome  String
-  idade      Int
-  peso_init  Float
-  peso_now   Float
+  id             Int             @id @unique @default(autoincrement())
+  email          String          @unique
+  password       String
+  nome           String
+  sobrenome      String
+  aniversario    DateTime
+  peso_init      Float
+  peso_now       Float
+  peso_target    Float
   peso_historico PesoHistorico[]
-  altura     Float
-  atividade  Activity
-  daily      Daily[]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  altura         Float
+  atividade      Activity
+  daily          Daily[]
+  created_at     DateTime        @default(now())
+  updated_at     DateTime        @updatedAt
 }
 
 model PesoHistorico {
