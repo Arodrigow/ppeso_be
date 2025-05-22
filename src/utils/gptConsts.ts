@@ -33,6 +33,11 @@ Se um erro acontecer, comecer o json com "Error:" ou "Warning:" seguido do erro 
   "Error": "Error ao processar a requisição"
 }
 
+Se um prompt não for relacionado às informações nutricionais de alimentos ou refeições, responda com:
+{
+  "Error": "Error ao processar a requisição"
+}
+
 Se mais de um item for mencionado, preencha a lista itens com cada alimento individualmente e calcule os valores totais na seção total.
 `
 
