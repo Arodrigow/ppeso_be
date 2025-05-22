@@ -9,8 +9,9 @@ export class MealService {
     ) { }
 
     createmMeal(meal: Prisma.MealCreateInput) {
+        
         return this.prismaService.meal.create({
-            data: meal
+            data:meal
         });
     }
 
