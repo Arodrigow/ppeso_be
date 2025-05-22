@@ -19,7 +19,7 @@ export class DailyService {
 
         const daily = await this.prismaService.daily.create({
             data: {
-                data: date,
+                data: new Date(date),
                 userId
             }
         });
@@ -30,7 +30,10 @@ export class DailyService {
         const { date, userId } = data;
         const daily = await this.prismaService.daily.findFirst({
             where: {
-                data: date,
+                data: {
+                    gte: new Date(new Date(date).setHours(0, 0, 0, 0)),
+                    lt: new Date(new Date(date).setHours(23, 59, 59, 999))
+                },
                 userId
             }
         });

@@ -13,8 +13,8 @@ export class DailyController {
     }
 
     @Get()
-    getDailyByDateAndUserId(@Query('date') date: string, @Query('userId') userId: number) {
-        return this.dailyService.findDailyByDateAndUserId({ date: date, userId });
+    getDailyByDateAndUserId(@Query('date') date: string, @Query('userId') userId: string) {
+        return this.dailyService.findDailyByDateAndUserId({ date: date, userId: Number(userId) });
     }
     
 }
