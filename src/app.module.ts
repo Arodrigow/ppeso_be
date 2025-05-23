@@ -7,9 +7,11 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ItemModule } from './item/item.module';
 import { MealModule } from './meal/meal.module';
 import { DailyModule } from './daily/daily.module';
+import { UserModule } from './user/user.module';
+import { PesohistoricoModule } from './pesohistorico/pesohistorico.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), ModelModule, PrismaModule, ItemModule, MealModule, DailyModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), ModelModule, PrismaModule, ItemModule, MealModule, DailyModule, UserModule, PesohistoricoModule],
   controllers: [AppController],
   providers: [AppService],
 })

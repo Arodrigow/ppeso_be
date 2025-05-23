@@ -27,11 +27,12 @@ model User {
   aniversario    DateTime
   peso_init      Float
   peso_now       Float
-  peso_target    Float
+  peso_target    Float?
   peso_historico PesoHistorico[]
   altura         Float
   atividade      Activity
   daily          Daily[]
+  invite_code    String          @unique
   created_at     DateTime        @default(now())
   updated_at     DateTime        @updatedAt
 }

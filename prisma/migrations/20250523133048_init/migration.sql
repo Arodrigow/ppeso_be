@@ -8,9 +8,10 @@ CREATE TABLE "User" (
     "aniversario" DATETIME NOT NULL,
     "peso_init" REAL NOT NULL,
     "peso_now" REAL NOT NULL,
-    "peso_target" REAL NOT NULL,
+    "peso_target" REAL,
     "altura" REAL NOT NULL,
     "atividade" TEXT NOT NULL,
+    "invite_code" TEXT NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
 );
@@ -75,6 +76,9 @@ CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_invite_code_key" ON "User"("invite_code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "PesoHistorico_id_key" ON "PesoHistorico"("id");
