@@ -11,7 +11,8 @@ CREATE TABLE "User" (
     "peso_target" REAL,
     "altura" REAL NOT NULL,
     "atividade" TEXT NOT NULL,
-    "invite_code" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
+    "role" TEXT NOT NULL DEFAULT 'USER',
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
 );
@@ -71,6 +72,15 @@ CREATE TABLE "Daily" (
     CONSTRAINT "Daily_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- CreateTable
+CREATE TABLE "invitations" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "email" TEXT NOT NULL,
+    "token" TEXT,
+    "used" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
 
@@ -78,7 +88,7 @@ CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_invite_code_key" ON "User"("invite_code");
+CREATE UNIQUE INDEX "User_token_key" ON "User"("token");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "PesoHistorico_id_key" ON "PesoHistorico"("id");
@@ -91,3 +101,9 @@ CREATE UNIQUE INDEX "Meal_id_key" ON "Meal"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Daily_id_key" ON "Daily"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "invitations_email_key" ON "invitations"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "invitations_token_key" ON "invitations"("token");

@@ -32,7 +32,8 @@ model User {
   altura         Float
   atividade      Activity
   daily          Daily[]
-  invite_code    String          @unique
+  token          String          @unique
+  role           Role            @default(USER)
   created_at     DateTime        @default(now())
   updated_at     DateTime        @updatedAt
 }
@@ -45,6 +46,11 @@ model PesoHistorico {
   userId     Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 enum Activity {
@@ -98,4 +104,14 @@ model Daily {
   userId     Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model Invitation {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  token     String?  @unique
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("invitations")
 }
