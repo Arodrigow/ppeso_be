@@ -9,6 +9,7 @@ export class ItemService {
     ) { }
 
     createItem(data: Prisma.ItemCreateInput) {
+        console.log('data', data);
         return this.prisma.item.create({
             data
         });
