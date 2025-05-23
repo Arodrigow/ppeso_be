@@ -14,6 +14,7 @@ export class DailyController {
         return this.dailyService.createDaily(data);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     getDailyByDateAndUserId(@Query('date') date: string, @Query('userId') userId: string) {
         return this.dailyService.findDailyByDateAndUserId({ date: date, userId: Number(userId) });
