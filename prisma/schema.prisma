@@ -68,6 +68,7 @@ model Item {
   sodio_mg       Float?
   meal           Meal     @relation(fields: [mealId], references: [id])
   mealId         Int
+  fonte          String?
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 }

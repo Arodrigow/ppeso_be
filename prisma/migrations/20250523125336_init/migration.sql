@@ -38,6 +38,7 @@ CREATE TABLE "Item" (
     "fibras_g" REAL,
     "sodio_mg" REAL,
     "mealId" INTEGER NOT NULL,
+    "fonte" TEXT,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL,
     CONSTRAINT "Item_mealId_fkey" FOREIGN KEY ("mealId") REFERENCES "Meal" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
