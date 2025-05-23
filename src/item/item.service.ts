@@ -8,11 +8,10 @@ export class ItemService {
         private readonly prisma: PrismaService
     ) { }
 
-    createItem(data: Prisma.ItemCreateInput) {
-        console.log('data', data);
-        return this.prisma.item.create({
-            data
-        });
+    createItem(items: Prisma.ItemCreateManyInput) {
+        return this.prisma.item.createMany({
+            data: items
+        })
     }
 
     findItemsOfMeals(mealId: number) {

@@ -11,7 +11,7 @@ export class ItemController {
     ){}
 
     @Post()
-    createItem(@Body('data') data: Prisma.ItemCreateInput){
+    createItem(@Body('data') data: Prisma.ItemCreateManyInput){
         return this.itemService.createItem(data);
     }
 
