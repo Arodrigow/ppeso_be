@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import sanitizeUser from '@/utils/sanitizeUser';
 
 @Injectable()
 export class AuthService {
@@ -22,6 +23,7 @@ export class AuthService {
      async login(user: any) {
         const payload = { username: user.email, sub: user.id, role: user.role };
         return {
+            user: sanitizeUser(user),
             access_token: this.jwtService.sign(payload, {
                 expiresIn: '24h',
             }),
