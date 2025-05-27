@@ -13,6 +13,10 @@ CREATE TABLE "User" (
     "atividade" TEXT NOT NULL,
     "token" TEXT NOT NULL,
     "role" TEXT NOT NULL DEFAULT 'USER',
+    "regime_calorico" TEXT NOT NULL DEFAULT 'Leve',
+    "estrategia" TEXT NOT NULL DEFAULT 'Fixo',
+    "gender" TEXT NOT NULL,
+    "version" INTEGER NOT NULL DEFAULT 1,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
 );
