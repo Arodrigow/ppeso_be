@@ -13,23 +13,25 @@ async function bootstrap() {
     new FastifyAdapter()
   );
 
-  // Apply rate limiting
+  // Rate limiting
   await app.register(fastifyRateLimit, {
-    max: 100, // limit each IP to 100 requests
+    max: 100,
     timeWindow: '15 minutes',
   });
 
-  // Apply security headers
-  // Note: fastify-helmet is a wrapper around helmet.js for Fastify
+  // Helmet for security headers
   await app.register(fastifyHelmet);
-  
+
   // Enable CORS
-  // Note: In production, you should specify the allowed origins instead of using '*'
   app.enableCors({
-    origin: '*', // or '*' in dev
-    credentials: true, // if you're using cookies
+    origin: '*',
+    credentials: true,
   });
- 
+
+  // 🟢 This is critical
+  await app.init();
+
+  // Then start server
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }
 bootstrap();
