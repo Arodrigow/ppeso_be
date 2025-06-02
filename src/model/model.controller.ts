@@ -1,6 +1,7 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ModelService } from './model.service';
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
+import { UserMatchGuard } from '@/auth/user-auth.guard';
 
 type getNutrition = {
     data: string
@@ -11,7 +12,7 @@ export class ModelController {
 
     constructor(private readonly modelService: ModelService) {}
 
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard, UserMatchGuard)
     @Post()
     getModel(@Body() body: getNutrition) {
         return this.modelService.getNutrition(body.data);
