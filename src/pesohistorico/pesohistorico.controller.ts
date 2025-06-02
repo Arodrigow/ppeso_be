@@ -7,12 +7,12 @@ import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 export class PesohistoricoController {
     constructor(
         private readonly pesoService: PesohistoricoService
-    ){}
+    ) { }
 
     @UseGuards(JwtAuthGuard)
-    @Post()
-    createPesohistorico(@Body() data: Prisma.PesoHistoricoCreateInput) {
-        return this.pesoService.createPesohistorico(data);
+    @Post(':userId')
+    createPesohistorico(@Param('userId') userId: string, @Body() data: Prisma.PesoHistoricoCreateInput) {
+        return this.pesoService.createPesohistorico(Number(userId), data);
     }
 
     @UseGuards(JwtAuthGuard)
