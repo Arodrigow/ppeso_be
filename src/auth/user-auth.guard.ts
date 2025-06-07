@@ -8,7 +8,6 @@ export class UserMatchGuard implements CanActivate {
     const authenticatedUserId = request.user?.id;
     const paramUserId =  Number(request.params.userId ?? request.query.userId ?? request.body.userId);;
 
-    console.log(authenticatedUserId + " "+ request)
     if (authenticatedUserId !== paramUserId) {
       throw new ForbiddenException('You are not authorized to access this resource.');
     }
