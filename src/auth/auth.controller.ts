@@ -10,7 +10,6 @@ export class AuthController {
     @Post('login')
     async login(@Request() req) {
         const resp = this.authService.login(req.user);
-        console.log(resp)
         return resp
     }
 }
