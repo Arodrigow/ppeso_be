@@ -15,14 +15,14 @@ export class UserController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get(':id')
-    getUser(@Param('id') id: string) {
+    @Get(':userId')
+    getUser(@Param('userId') id: string) {
         return this.userService.getUserById(Number(id));      
     }
 
     @UseGuards(JwtAuthGuard)
-    @Put(':id')
-    updateUser(@Param('id') id: string, @Body() data: Prisma.UserUpdateInput) {
+    @Put(':userId')
+    updateUser(@Param('userId') id: string, @Body() data: Prisma.UserUpdateInput) {
         return this.userService.updateUser(Number(id), data);
     }
 }
