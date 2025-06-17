@@ -16,13 +16,13 @@ export class MealController {
     }
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
-    @Get(':dailyId')
+    @Get(':userId/:dailyId')
     getMealByDailyId(@Param('dailyId') dailyId: string) {
         return this.mealService.findMealByDailyId(Number(dailyId));
     }
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
-    @Delete(':mealId')
+    @Delete(':userId/:mealId')
     deleteMealById(@Param('mealId') mealId: string) {
         return this.mealService.deleteMealById(Number(mealId));
     }
