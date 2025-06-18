@@ -10,7 +10,7 @@ export class MealController {
     ){}
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
-    @Post()
+    @Post(':userId')
     createMeal(@Body('meal') meal: any) {
         return this.mealService.createmMeal(meal);
     }
