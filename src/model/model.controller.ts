@@ -13,7 +13,7 @@ export class ModelController {
     constructor(private readonly modelService: ModelService) {}
 
     @UseGuards(JwtAuthGuard, UserMatchGuard)
-    @Post()
+    @Post(':userId')
     getModel(@Body() body: getNutrition) {
         return this.modelService.getNutrition(body.data);
     }
