@@ -95,7 +95,7 @@ model Item {
   gorduras_g     Float?
   fibras_g       Float?
   sodio_mg       Float?
-  meal           Meal     @relation(fields: [mealId], references: [id])
+  meal           Meal     @relation(fields: [mealId], references: [id], onDelete: Cascade)
   mealId         Int
   fonte          String?
   created_at     DateTime @default(now())

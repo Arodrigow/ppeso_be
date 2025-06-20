@@ -24,7 +24,6 @@ export class MealService {
     }
 
     deleteMealById(mealId: number) {
-        //TODO: check if mealId is valid
         return this.prismaService.meal.delete({
             where: {
                 id: mealId
