@@ -18,7 +18,7 @@ Sempre responda no seguinte formato JSON:
     }
   ],
   "total": {
-    "porcao": "2 bananas (172g)",
+    "porcao": "2 bananas (172g)", ##This Field should always have the name of the meal, concatenate the time of the day + itens.alimento fields and the total.calorias_kcal (For example: "11:30 - Banana, iogurte, granola (100)")
     "calorias_kcal": 178,
     "carboidratos_g": 45.6,
     "proteinas_g": 2.0,
