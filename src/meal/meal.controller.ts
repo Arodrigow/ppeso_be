@@ -11,19 +11,19 @@ export class MealController {
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Post(':userId')
-    createMeal(@Body('meal') meal: any) {
-        return this.mealService.createmMeal(meal);
+    async createMeal(@Body('meal') meal: any) {
+        return await this.mealService.createmMeal(meal);
     }
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Get(':userId/:dailyId')
-    getMealByDailyId(@Param('dailyId') dailyId: string) {
-        return this.mealService.findMealByDailyId(Number(dailyId));
+    async getMealByDailyId(@Param('dailyId') dailyId: string) {
+        return await this.mealService.findMealByDailyId(Number(dailyId));
     }
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Delete(':userId/:mealId')
-    deleteMealById(@Param('mealId') mealId: string) {
-        return this.mealService.deleteMealById(Number(mealId));
+    async deleteMealById(@Param('mealId') mealId: string) {
+        return await this.mealService.deleteMealById(Number(mealId));
     }
 }

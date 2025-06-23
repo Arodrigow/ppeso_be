@@ -13,7 +13,7 @@ export class DailyService {
             throw new Error('Date and User ID are required');
         }
         const existingDaily = await this.findDailyByDateAndUserId(data);
-        if (existingDaily) {        
+        if (existingDaily) {
             return existingDaily
         }
 
@@ -38,5 +38,27 @@ export class DailyService {
             }
         });
         return daily;
+    }
+
+    async updateDaily(dailyId, calorias_kcal) {
+        await this.prismaService.daily.update({
+            where: { id: dailyId },
+            data: {
+                calorias_total: {
+                    increment: calorias_kcal ?? 0,
+                },
+            },
+        });
+    }
+
+    async updateDailyCalOnMealDelete(dailyId, calorias_kcal) {
+        await this.prismaService.daily.update({
+            where: { id: dailyId },
+            data: {
+                calorias_total: {
+                    decrement: calorias_kcal ?? 0,
+                },
+            },
+        });
     }
 }

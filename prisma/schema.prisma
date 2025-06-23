@@ -119,13 +119,14 @@ model Meal {
 }
 
 model Daily {
-  id         Int      @id @unique @default(autoincrement())
-  data       DateTime
-  meal       Meal[]
-  user       User     @relation(fields: [userId], references: [id])
-  userId     Int
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id             Int      @id @unique @default(autoincrement())
+  data           DateTime
+  meal           Meal[]
+  user           User     @relation(fields: [userId], references: [id])
+  userId         Int
+  calorias_total Float    @default(0)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 }
 
 model Invitation {
