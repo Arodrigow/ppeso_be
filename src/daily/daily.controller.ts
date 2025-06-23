@@ -24,6 +24,6 @@ export class DailyController {
     @UseGuards(JwtAuthGuard, UserMatchGuard)
     @Get(':userId')
     async getAllDailiesByUser(@Param('userId') userId: number){
-        return await this.dailyService.findAllDailyByUserId(userId);
+        return await this.dailyService.findAllDailyByUserId(Number(userId));
     }
 }
