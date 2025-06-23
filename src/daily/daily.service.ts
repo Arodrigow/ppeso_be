@@ -40,6 +40,21 @@ export class DailyService {
         return daily;
     }
 
+    async findAllDailyByUserId(userId: number) {
+        const daily = await this.prismaService.daily.findMany({
+            where: {
+                userId
+            },
+            select:{
+                id: true,
+                data:true,
+                calorias_total:true
+            }
+        });
+        
+        return daily;
+    }
+
     async updateDaily(dailyId, calorias_kcal) {
         await this.prismaService.daily.update({
             where: { id: dailyId },
