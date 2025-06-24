@@ -23,7 +23,7 @@ export class PesohistoricoController {
     }
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
-    @Delete(':id')
+    @Delete(':userId/:id')
     deletePesohistorico(@Param('id') id: string) {
         return this.pesoService.deletePesohistorico(Number(id));
     }
