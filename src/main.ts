@@ -6,6 +6,7 @@ import {
 import { AppModule } from './app.module';
 import fastifyRateLimit from '@fastify/rate-limit';
 import fastifyHelmet from '@fastify/helmet';
+import { AllExceptionsFilter } from './utils/all-exceptions.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -27,6 +28,8 @@ async function bootstrap() {
     origin: '*',
     credentials: true,
   });
+
+  app.useGlobalFilters(new AllExceptionsFilter());
 
   // 🟢 This is critical
   await app.init();

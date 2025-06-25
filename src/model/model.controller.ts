@@ -14,8 +14,8 @@ export class ModelController {
 
     @UseGuards(JwtAuthGuard, UserMatchGuard)
     @Post(':userId')
-    getModel(@Body() body: getNutrition) {
-        return this.modelService.getNutrition(body.data);
+    async getModel(@Body() body: getNutrition) {
+        return await this.modelService.getNutrition(body.data);
     }
 
 }

@@ -1,13 +1,22 @@
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { BadRequestException, Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class PrismaService extends PrismaClient
-implements OnModuleInit, OnModuleDestroy{
+    implements OnModuleInit, OnModuleDestroy {
     async onModuleInit() {
-        await this.$connect();
+        try {
+            await this.$connect();
+
+        } catch (error) {
+            throw new BadRequestException('Erro ao conectar com banco de dados: ', error)
+        }
     }
     async onModuleDestroy() {
-        await this.$disconnect();
+        try {
+            await this.$disconnect();
+        } catch (error) {
+            throw new BadRequestException('Erro ao desconectar com banco de dados: ', error)
+        }
     }
 }

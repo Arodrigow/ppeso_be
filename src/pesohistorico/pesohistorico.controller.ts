@@ -12,19 +12,19 @@ export class PesohistoricoController {
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Post(':userId')
-    createPesohistorico(@Param('userId') userId: string, @Body() data: Prisma.PesoHistoricoCreateInput) {
-        return this.pesoService.createPesohistorico(Number(userId), data);
+    async createPesohistorico(@Param('userId') userId: string, @Body() data: Prisma.PesoHistoricoCreateInput) {
+        return await this.pesoService.createPesohistorico(Number(userId), data);
     }
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Get(':userId')
-    getPesoHistoricosByUserId(@Param('userId') userId: string) {
-        return this.pesoService.getPesoHistoricosByUserId(Number(userId));
+    async getPesoHistoricosByUserId(@Param('userId') userId: string) {
+        return await this.pesoService.getPesoHistoricosByUserId(Number(userId));
     }
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Delete(':userId/:id')
-    deletePesohistorico(@Param('id') id: string) {
-        return this.pesoService.deletePesohistorico(Number(id));
+    async deletePesohistorico(@Param('id') id: string) {
+        return await this.pesoService.deletePesohistorico(Number(id));
     }
 }

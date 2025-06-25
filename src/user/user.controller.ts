@@ -10,19 +10,19 @@ export class UserController {
     ){}
 
     @Post()
-    createUser(@Body() data: Prisma.UserCreateInput){
-        return this.userService.createUser(data);
+    async createUser(@Body() data: Prisma.UserCreateInput){
+        return await this.userService.createUser(data);
     }
 
     @UseGuards(JwtAuthGuard)
     @Get(':userId')
-    getUser(@Param('userId') id: string) {
-        return this.userService.getUserById(Number(id));      
+    async getUser(@Param('userId') id: string) {
+        return await this.userService.getUserById(Number(id));      
     }
 
     @UseGuards(JwtAuthGuard)
     @Put(':userId')
-    updateUser(@Param('userId') id: string, @Body() data: Prisma.UserUpdateInput) {
-        return this.userService.updateUser(Number(id), data);
+    async updateUser(@Param('userId') id: string, @Body() data: Prisma.UserUpdateInput) {
+        return await this.userService.updateUser(Number(id), data);
     }
 }

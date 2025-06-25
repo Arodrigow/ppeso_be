@@ -20,42 +20,61 @@ export class InvitationService {
             throw new BadRequestException('Convite ativo para este email já existe. Token: ' + invitation.token)
         }
 
-        await this.prisma.invitation.create({
-            data: {
-                email,
-                token: str,
-            },
-        });
+        try {
+            await this.prisma.invitation.create({
+                data: {
+                    email,
+                    token: str,
+                },
+            });
 
-        return str;
+            return str;
+        } catch (error) {
+            throw new BadRequestException('Erro ao criar convite: ', error)
+        }
+
     }
 
     async findInvitationByToken(token: string) {
-        const invitation = await this.prisma.invitation.findUnique({
-            where: {
-                token
-            }
-        })
-        return invitation;
+        try {
+            const invitation = await this.prisma.invitation.findUnique({
+                where: {
+                    token
+                }
+            })
+            return invitation;
+        } catch (error) {
+            throw new BadRequestException('Erro ao encontrar convite pelo token: ', error)
+        }
     }
 
     async findInvitationByEmail(email: string) {
-        const invitation = await this.prisma.invitation.findUnique({
-            where: {
-                email,
-            }
-        })
-        return invitation;
+        try {
+            const invitation = await this.prisma.invitation.findUnique({
+                where: {
+                    email,
+                }
+            })
+            return invitation;
+
+        } catch (error) {
+            throw new BadRequestException('Erro ao encontrar convite pelo email: ', error)
+        }
     }
 
     async markInvitationAsUsed(token: string) {
-        await this.prisma.invitation.update({
-            where: {
-                token
-            },
-            data: {
-                used: true
-            }
-        })
+        try {
+
+            await this.prisma.invitation.update({
+                where: {
+                    token
+                },
+                data: {
+                    used: true
+                }
+            })
+        } catch (error) {
+            throw new BadRequestException('Erro ao atualizar o convite como usado: ', error)
+        }
     }
 }

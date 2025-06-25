@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -12,21 +12,30 @@ export class AuthService {
         private readonly jwtService: JwtService) { }
 
     async validateUser(email: string, pass: string): Promise<any> {
-        const user = await this.userService.getUserByEmail(email);
-        if (user && await bcrypt.compare(pass, user.password)) {
-            const { password, ...result } = user;
-            return result;
+        try {
+
+            const user = await this.userService.getUserByEmail(email);
+            if (user && await bcrypt.compare(pass, user.password)) {
+                const { password, ...result } = user;
+                return result;
+            }
+            return null;
+        } catch (err) {
+            throw new InternalServerErrorException('Erro na validação de usuário', err);
         }
-        return null;
     }
 
-     async login(user: any) {
-        const payload = { username: user.email, sub: user.id, role: user.role };
-        return {
-            user: sanitizeUser(user),
-            access_token: this.jwtService.sign(payload, {
-                expiresIn: '24h',
-            }),
-        };
+    async login(user: any) {
+        try {
+            const payload = { username: user.email, sub: user.id, role: user.role };
+            return {
+                user: sanitizeUser(user),
+                access_token: this.jwtService.sign(payload, {
+                    expiresIn: '24h',
+                }),
+            };
+        } catch (err) {
+            throw new InternalServerErrorException('Erro na validação de usuário', err);
+        }
     }
 }

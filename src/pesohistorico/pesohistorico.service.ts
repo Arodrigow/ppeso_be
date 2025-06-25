@@ -1,6 +1,6 @@
 import { PrismaService } from '@/prisma/prisma.service';
 import { UserService } from '@/user/user.service';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
@@ -11,42 +11,61 @@ export class PesohistoricoService {
     ) { }
 
     async createPesohistorico(userId: number, data: Prisma.PesoHistoricoCreateInput) {
-        const newPeso = await this.prisma.pesoHistorico.create({
-            data
-        });
+        try {
+            const newPeso = await this.prisma.pesoHistorico.create({
+                data
+            });
 
-        const mostRecentPeso = await this.getLastestPeso(userId)
-        await this.user.updateUser(userId, { peso_now: mostRecentPeso?.peso })
+            const mostRecentPeso = await this.getLastestPeso(userId)
+            await this.user.updateUser(userId, { peso_now: mostRecentPeso?.peso })
 
-        return newPeso;
+            return newPeso;
+        } catch (error) {
+            throw new BadRequestException('Erro ao criar novo peso: ', error)
+        }
     }
 
-    getPesoHistoricosByUserId(userId: number) {
-        return this.prisma.pesoHistorico.findMany({
-            where: {
-                userId
-            }
-        });
+    async getPesoHistoricosByUserId(userId: number) {
+        try {
+
+            return await this.prisma.pesoHistorico.findMany({
+                where: {
+                    userId
+                }
+            });
+        } catch (error) {
+            throw new BadRequestException('Erro ao listar pesos do usuário: ', error)
+        }
     }
 
-    deletePesohistorico(id: number) {
-        return this.prisma.pesoHistorico.delete({
-            where: {
-                id
-            }
-        });
+    async deletePesohistorico(id: number) {
+        try {
+
+            return await this.prisma.pesoHistorico.delete({
+                where: {
+                    id
+                }
+            });
+        } catch (error) {
+            throw new BadRequestException('Erro ao deletar peso: ', error)
+        }
     }
 
     async getLastestPeso(id: number) {
-        return await this.prisma.pesoHistorico.findFirst(
-            {
-                where: {
-                    userId: id,
-                },
-                orderBy: {
-                    data: 'desc',
-                },
-            }
-        )
+        try {
+            return await this.prisma.pesoHistorico.findFirst(
+                {
+                    where: {
+                        userId: id,
+                    },
+                    orderBy: {
+                        data: 'desc',
+                    },
+                }
+            )
+
+        } catch (error) {
+            throw new BadRequestException('Erro ao encontrar ultimo peso: ', error)
+        }
     }
 }

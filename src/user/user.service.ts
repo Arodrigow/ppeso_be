@@ -57,28 +57,41 @@ export class UserService {
         }
     }
 
-    getUserById(id: number) {
-        return this.prisma.user.findUnique({
-            where: {
-                id
-            }
-        });
+    async getUserById(id: number) {
+        try {
+            return await this.prisma.user.findUnique({
+                where: {
+                    id
+                }
+            });
+        } catch (error) {
+            throw new BadRequestException('Erro ao encontrar usuário: ', error)
+        }
     }
 
-    getUserByEmail(email: string) {
-        return this.prisma.user.findUnique({
-            where: {
-                email
-            }
-        })
+    async getUserByEmail(email: string) {
+        try {
+            return await this.prisma.user.findUnique({
+                where: {
+                    email
+                }
+            })
+
+        } catch (error) {
+            throw new BadRequestException('Erro ao encontrar usuário por email: ', error)
+        }
     }
 
-    updateUser(id: number, data: Prisma.UserUpdateInput) {
-        return this.prisma.user.update({
-            where: {
-                id
-            },
-            data
-        });
+    async updateUser(id: number, data: Prisma.UserUpdateInput) {
+        try {
+            return await this.prisma.user.update({
+                where: {
+                    id
+                },
+                data
+            });
+        } catch (error) {
+            throw new BadRequestException('Erro ao atualizar usuário: ', error)
+        }
     }
 }

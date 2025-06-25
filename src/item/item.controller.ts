@@ -14,13 +14,13 @@ export class ItemController {
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Post(':userId')
-    createItem(@Body('data') data: Prisma.ItemCreateManyInput){
-        return this.itemService.createItem(data);
+    async createItem(@Body('data') data: Prisma.ItemCreateManyInput){
+        return await this.itemService.createItem(data);
     }
     
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Get(':userId/:mealId')
-    findItemsOfMeals(@Param('mealId') mealId: string) {
-        return this.itemService.findItemsOfMeals(Number(mealId));
+    async findItemsOfMeals(@Param('mealId') mealId: string) {
+        return await this.itemService.findItemsOfMeals(Number(mealId));
     }
 }
