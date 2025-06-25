@@ -31,7 +31,7 @@ export class AuthService {
             return {
                 user: sanitizeUser(user),
                 access_token: this.jwtService.sign(payload, {
-                    expiresIn: '24h',
+                    expiresIn: '30d',
                 }),
             };
         } catch (err) {
