@@ -21,14 +21,13 @@ export class InvitationService {
         }
 
         try {
-            await this.prisma.invitation.create({
+            return await this.prisma.invitation.create({
                 data: {
                     email,
                     token: str,
                 },
             });
 
-            return str;
         } catch (error) {
             throw new BadRequestException('Erro ao criar convite: ', error)
         }
@@ -81,7 +80,7 @@ export class InvitationService {
     async getAllUnusedInvitation() {
         try {
 
-            await this.prisma.invitation.findMany({
+            return await this.prisma.invitation.findMany({
                 where: {
                     used: false
                 },
