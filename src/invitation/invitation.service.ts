@@ -77,4 +77,17 @@ export class InvitationService {
             throw new BadRequestException('Erro ao atualizar o convite como usado: ', error)
         }
     }
+
+    async getAllUnusedInvitation() {
+        try {
+
+            await this.prisma.invitation.findMany({
+                where: {
+                    used: false
+                },
+            })
+        } catch (error) {
+            throw new BadRequestException('Erro ao listar todos os convites não usados: ', error)
+        }
+    }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { InvitationService } from './invitation.service';
 import { Prisma, Role } from '@prisma/client';
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
@@ -12,17 +12,24 @@ export class InvitationController {
         private readonly invitation: InvitationService
     ) { }
 
-    @UseGuards(JwtAuthGuard, RolesGuard,UserMatchGuard)
+    @UseGuards(JwtAuthGuard, RolesGuard, UserMatchGuard)
     @Roles(Role.ADMIN)
     @Post(':userId')
     async createInvitation(@Body() data: Prisma.InvitationCreateInput) {
         return await this.invitation.createInvitation(data.email);
     }
 
-    @UseGuards(JwtAuthGuard, RolesGuard,UserMatchGuard)
+    @UseGuards(JwtAuthGuard, RolesGuard, UserMatchGuard)
     @Roles(Role.ADMIN)
     @Put(":userId/:token")
     async markInvitationAsUsed(@Param('token') token: string) {
         return await this.invitation.markInvitationAsUsed(token);
+    }
+
+    @UseGuards(JwtAuthGuard, RolesGuard, UserMatchGuard)
+    @Roles(Role.ADMIN)
+    @Get(":userId")
+    async getAllUnusedInvitation() {
+        return await this.invitation.getAllUnusedInvitation();
     }
 }
