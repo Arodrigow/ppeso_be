@@ -14,14 +14,14 @@ export class InvitationController {
 
     @UseGuards(JwtAuthGuard, RolesGuard,UserMatchGuard)
     @Roles(Role.ADMIN)
-    @Post()
+    @Post(':userId')
     async createInvitation(@Body() data: Prisma.InvitationCreateInput) {
         return await this.invitation.createInvitation(data.email);
     }
 
     @UseGuards(JwtAuthGuard, RolesGuard,UserMatchGuard)
     @Roles(Role.ADMIN)
-    @Put(":token")
+    @Put(":userId/:token")
     async markInvitationAsUsed(@Param('token') token: string) {
         return await this.invitation.markInvitationAsUsed(token);
     }
