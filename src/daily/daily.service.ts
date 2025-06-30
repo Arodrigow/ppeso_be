@@ -22,7 +22,7 @@ export class DailyService {
             const daily = await this.prismaService.daily.create({
                 data: {
                     data: new Date(date),
-                    userId
+                    userId,
                 }
             });
             return daily;
@@ -58,7 +58,8 @@ export class DailyService {
                 select: {
                     id: true,
                     data: true,
-                    calorias_total: true
+                    calorias_total: true,
+                    daily_limit: true
                 }
             });
 
@@ -69,15 +70,15 @@ export class DailyService {
         }
     }
 
-    async updateDaily(dailyId, calorias_kcal) {
+    async updateDaily(dailyId, calorias_kcal, daily_limit) {
         try {
-
             await this.prismaService.daily.update({
                 where: { id: dailyId },
                 data: {
                     calorias_total: {
                         increment: calorias_kcal ?? 0,
                     },
+                    daily_limit
                 },
             });
         } catch (err) {

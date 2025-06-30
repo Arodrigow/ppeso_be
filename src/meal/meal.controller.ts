@@ -11,8 +11,8 @@ export class MealController {
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Post(':userId')
-    async createMeal(@Body('meal') meal: any) {
-        return await this.mealService.createmMeal(meal);
+    async createMeal(@Body('meal') meal: any, @Body('daily_limit') daily_limit:number) {
+        return await this.mealService.createmMeal(meal, Number(daily_limit));
     }
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)

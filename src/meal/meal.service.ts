@@ -10,13 +10,13 @@ export class MealService {
         private readonly dailyService: DailyService
     ) { }
 
-    async createmMeal(meal: Prisma.MealCreateInput) {
+    async createmMeal(meal: Prisma.MealCreateInput, daily_limit) {
         try {
             const mealResp = await this.prismaService.meal.create({
                 data: meal
             });
 
-            await this.dailyService.updateDaily(mealResp.dailyId, mealResp.calorias_kcal)
+            await this.dailyService.updateDaily(mealResp.dailyId, mealResp.calorias_kcal, daily_limit)
 
             return mealResp
 

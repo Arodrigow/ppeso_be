@@ -7,11 +7,11 @@ import { UserMatchGuard } from '@/auth/user-auth.guard';
 export class DailyController {
     constructor(
         private readonly dailyService: DailyService
-    ){}
+    ) { }
 
-    @UseGuards(JwtAuthGuard,UserMatchGuard)
+    @UseGuards(JwtAuthGuard, UserMatchGuard)
     @Post()
-    async getDailyByUserId(@Body('data') data: { date: string, userId: number }) {
+    async createDaily(@Body('data') data: { date: string, userId: number }) {
         return await this.dailyService.createDaily(data);
     }
 
@@ -20,10 +20,10 @@ export class DailyController {
     async getDailyByDateAndUserId(@Query('date') date: string, @Query('userId') userId: string) {
         return await this.dailyService.findDailyByDateAndUserId({ date: date, userId: Number(userId) });
     }
-        
+
     @UseGuards(JwtAuthGuard, UserMatchGuard)
     @Get(':userId')
-    async getAllDailiesByUser(@Param('userId') userId: number){
+    async getAllDailiesByUser(@Param('userId') userId: number) {
         return await this.dailyService.findAllDailyByUserId(Number(userId));
     }
 }

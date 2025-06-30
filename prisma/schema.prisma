@@ -125,6 +125,7 @@ model Daily {
   user           User     @relation(fields: [userId], references: [id])
   userId         Int
   calorias_total Float    @default(0)
+  daily_limit    Int      @default(0)
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 }
