@@ -24,7 +24,7 @@ export class PesohistoricoController {
 
     @UseGuards(JwtAuthGuard,UserMatchGuard)
     @Delete(':userId/:id')
-    async deletePesohistorico(@Param('id') id: string) {
-        return await this.pesoService.deletePesohistorico(Number(id));
+    async deletePesohistorico(@Param('userId') userId: string, @Param('id') id: string) {
+        return await this.pesoService.deletePesohistorico(Number(userId), Number(id));
     }
 }

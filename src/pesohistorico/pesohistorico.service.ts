@@ -38,14 +38,19 @@ export class PesohistoricoService {
         }
     }
 
-    async deletePesohistorico(id: number) {
+    async deletePesohistorico(userId: number, id: number) {
         try {
 
-            return await this.prisma.pesoHistorico.delete({
+            const deletedPeso = await this.prisma.pesoHistorico.delete({
                 where: {
                     id
                 }
             });
+
+            const mostRecentPeso = await this.getLastestPeso(userId)
+            await this.user.updateUser(userId, { peso_now: mostRecentPeso?.peso })
+
+            return deletedPeso;
         } catch (error) {
             throw new BadRequestException('Erro ao deletar peso: ', error)
         }
