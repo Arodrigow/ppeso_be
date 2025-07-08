@@ -12,7 +12,7 @@ import { PrismaService } from './prisma/prisma.service';
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter()
+    new FastifyAdapter({trustProxy:true})
   );
 
   // Rate limiting
@@ -43,7 +43,7 @@ async function bootstrap() {
       console.error('[DB Ping] Failed:', error);
     }
   }, 10 * 60 * 1000); // every 10 minutes
-  
+
   // Then start server
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }
