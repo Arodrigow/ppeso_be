@@ -3,6 +3,7 @@ import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import sanitizeUser from '@/utils/sanitizeUser';
+import axios from 'axios';
 
 @Injectable()
 export class AuthService {
@@ -36,6 +37,28 @@ export class AuthService {
             };
         } catch (err) {
             throw new InternalServerErrorException('Erro na validação de usuário', err);
+        }
+    }
+
+    async validateRecaptcha(captchaToken: string): Promise<boolean> {
+        const secret = process.env.RECAPTCHA_SECRET_KEY;
+        if (!secret) {
+            throw new InternalServerErrorException('reCAPTCHA secret key is not configured');
+        }
+        try {
+            const { data } = await axios.post(
+                `https://www.google.com/recaptcha/api/siteverify`,
+                new URLSearchParams({
+                    secret,
+                    response: captchaToken,
+                }).toString(),
+                { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
+            );
+
+            return data.success && data.score >= 0.5; // For reCAPTCHA v2, just check success
+        } catch (e) {
+            console.error('reCAPTCHA error:', e);
+            return false;
         }
     }
 }
