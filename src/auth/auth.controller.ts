@@ -18,7 +18,6 @@ export class AuthController {
             throw new InternalServerErrorException('reCAPTCHA inválido');
         }
         
-        console.log(req.user)
         const resp = this.authService.login(req.user);
         return resp
     }
