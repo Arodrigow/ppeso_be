@@ -1,4 +1,4 @@
-import { Controller, InternalServerErrorException, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from './local-auth.guard';
 import { AuthService } from './auth.service';
 
@@ -15,7 +15,7 @@ export class AuthController {
         const validCaptcha = await this.authService.validateRecaptcha(captchaToken);
 
         if (!validCaptcha) {
-            throw new InternalServerErrorException('reCAPTCHA inválido');
+            throw new UnauthorizedException('reCAPTCHA inválido');
         }
         
         const resp = this.authService.login(req.user);

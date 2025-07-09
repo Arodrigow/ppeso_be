@@ -1,9 +1,10 @@
 import { PrismaService } from '@/prisma/prisma.service';
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import * as bc from 'bcrypt';
 import { Prisma, User } from '@prisma/client';
 import { ConfigService } from '@nestjs/config';
 import { InvitationService } from '@/invitation/invitation.service';
+import axios from 'axios';
 
 @Injectable()
 export class UserService {
@@ -92,6 +93,29 @@ export class UserService {
             });
         } catch (error) {
             throw new BadRequestException('Erro ao atualizar usuário: ', error)
+        }
+    }
+
+    async validateRecaptcha(token: string): Promise<boolean> {
+        const secret = process.env.RECAPTCHA_SECRET_KEY;
+
+        if (!secret) {
+            throw new InternalServerErrorException('reCAPTCHA secret key is not configured');
+        }
+        try {
+            const { data } = await axios.post(
+                `https://www.google.com/recaptcha/api/siteverify`,
+                new URLSearchParams({
+                    secret,
+                    response: token,
+                }).toString(),
+                { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
+            );
+
+            return data.success; // For reCAPTCHA v2, just check success
+        } catch (e) {
+            console.error('reCAPTCHA error:', e);
+            return false;
         }
     }
 }
