@@ -11,7 +11,7 @@ export class UserController {
 
     @Post()
     async createUser(@Body() data: any) {
-        const captchaToken = data.captchaToken;
+        const { captchaToken, ...userData } = data;
 
         const validCaptcha = await this.userService.validateRecaptcha(captchaToken);
 
@@ -19,7 +19,7 @@ export class UserController {
             throw new UnauthorizedException('Verificação do reCAPTCHA falhou.');
         }
 
-        return await this.userService.createUser(data);
+        return await this.userService.createUser(userData);
     }
 
     @UseGuards(JwtAuthGuard)
