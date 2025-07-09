@@ -42,7 +42,7 @@ export class AuthService {
 
     async validateRecaptcha(captchaToken: string): Promise<boolean> {
         const secret = process.env.RECAPTCHA_SECRET_KEY;
-        console.log("Secret: "+ secret)
+        
         if (!secret) {
             throw new InternalServerErrorException('reCAPTCHA secret key is not configured');
         }
@@ -56,9 +56,7 @@ export class AuthService {
                 { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
             );
 
-            console.log("reCAPTCHA response: ", data);
-            
-            return data.success && data.score >= 0.5; // For reCAPTCHA v2, just check success
+            return data.success; // For reCAPTCHA v2, just check success
         } catch (e) {
             console.error('reCAPTCHA error:', e);
             return false;

@@ -11,15 +11,14 @@ export class AuthController {
     async login(@Request() req) {
 
         const { captchaToken } = req.body
-        console.log("Body: ", req.body)
-        console.log("token: " + captchaToken);
+
         const validCaptcha = await this.authService.validateRecaptcha(captchaToken);
 
         if (!validCaptcha) {
             throw new InternalServerErrorException('reCAPTCHA inválido');
         }
         
-        console.log("req.user: ", req.user)
+        console.log(req.user)
         const resp = this.authService.login(req.user);
         return resp
     }
