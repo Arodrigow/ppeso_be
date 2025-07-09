@@ -9,9 +9,10 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() req) {
-        console.log(req)
-        const validCaptcha = await this.authService.validateRecaptcha(req.captchaToken);
-        console.log(req.captchaToken)
+        
+        const { captchaToken } = req.body
+        const validCaptcha = await this.authService.validateRecaptcha(captchaToken);
+
         if (!validCaptcha) {
             throw new InternalServerErrorException('reCAPTCHA inválido');
         }
