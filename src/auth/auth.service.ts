@@ -56,6 +56,8 @@ export class AuthService {
                 { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
             );
 
+            console.log("reCAPTCHA response: ", data);
+            
             return data.success && data.score >= 0.5; // For reCAPTCHA v2, just check success
         } catch (e) {
             console.error('reCAPTCHA error:', e);
