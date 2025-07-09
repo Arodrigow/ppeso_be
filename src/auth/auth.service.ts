@@ -42,6 +42,7 @@ export class AuthService {
 
     async validateRecaptcha(captchaToken: string): Promise<boolean> {
         const secret = process.env.RECAPTCHA_SECRET_KEY;
+        console.log("Secret: "+ secret)
         if (!secret) {
             throw new InternalServerErrorException('reCAPTCHA secret key is not configured');
         }
