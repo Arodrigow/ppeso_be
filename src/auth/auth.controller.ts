@@ -10,13 +10,13 @@ export class AuthController {
     @Post('login')
     async login(@Request() req) {
 
-        const { captchaToken } = req.body
+        // const { captchaToken } = req.body
 
-        const validCaptcha = await this.authService.validateRecaptcha(captchaToken);
+        // // const validCaptcha = await this.authService.validateRecaptcha(captchaToken);
 
-        if (!validCaptcha) {
-            throw new UnauthorizedException('reCAPTCHA inválido');
-        }
+        // // if (!validCaptcha) {
+        // //     throw new UnauthorizedException('reCAPTCHA inválido');
+        // // }
         
         const resp = this.authService.login(req.user);
         return resp

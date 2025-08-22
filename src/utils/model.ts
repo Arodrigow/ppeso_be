@@ -9,7 +9,7 @@ export const chatGPT = async (data: string) => {
 
     const client = new OpenAI({ baseURL: endpoint, apiKey: token });
 
-    const response = await client.chat.completions.create({
+    let rawResponse = await client.chat.completions.create({
         messages: [
             { role: "system", content: gptSystemRole },
             { role: "user", content: gptUserRole + JSON.stringify(data) }
@@ -20,8 +20,15 @@ export const chatGPT = async (data: string) => {
         model: model
     });
 
-    if (response.choices[0].message.content)
-        return gptResponseFilter(response.choices[0].message.content);
+    if (typeof rawResponse === 'string')
+        rawResponse = JSON.parse(rawResponse)
 
-    return {}
+    const content = rawResponse?.choices?.[0]?.message?.content;
+
+    if (content) {
+        return gptResponseFilter(content);
+    }
+
+    console.error('Resposta inesperada da API do ChatGPT:', JSON.stringify(rawResponse, null, 2));
+    throw new Error('Resposta inválida ou vazia da API do ChatGPT');
 }
