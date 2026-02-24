@@ -1,0 +1,786 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/model/{userId}": {
+      "post": {
+        "operationId": "ModelController_getModel",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "string",
+                    "example": "1 banana, 2 ovos e 100g de arroz"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Obter analise nutricional via modelo",
+        "tags": [
+          "Model"
+        ]
+      }
+    },
+    "/item/{userId}": {
+      "post": {
+        "operationId": "ItemController_createItem",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Criar item de refeicao",
+        "tags": [
+          "Item"
+        ]
+      }
+    },
+    "/item/{userId}/{mealId}": {
+      "get": {
+        "operationId": "ItemController_findItemsOfMeals",
+        "parameters": [
+          {
+            "name": "mealId",
+            "required": true,
+            "in": "path",
+            "description": "ID da refeicao",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Listar itens de uma refeicao",
+        "tags": [
+          "Item"
+        ]
+      }
+    },
+    "/meal/{userId}": {
+      "post": {
+        "operationId": "MealController_createMeal",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "meal",
+                  "daily_limit"
+                ],
+                "properties": {
+                  "meal": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "daily_limit": {
+                    "type": "number",
+                    "example": 2000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Criar refeicao",
+        "tags": [
+          "Meal"
+        ]
+      }
+    },
+    "/meal/{userId}/{dailyId}": {
+      "get": {
+        "operationId": "MealController_getMealByDailyId",
+        "parameters": [
+          {
+            "name": "dailyId",
+            "required": true,
+            "in": "path",
+            "description": "ID do diario",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Buscar refeicoes por ID do diario",
+        "tags": [
+          "Meal"
+        ]
+      }
+    },
+    "/meal/{userId}/{mealId}": {
+      "delete": {
+        "operationId": "MealController_deleteMealById",
+        "parameters": [
+          {
+            "name": "mealId",
+            "required": true,
+            "in": "path",
+            "description": "ID da refeicao",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Excluir refeicao por ID",
+        "tags": [
+          "Meal"
+        ]
+      }
+    },
+    "/daily": {
+      "post": {
+        "operationId": "DailyController_createDaily",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "required": [
+                      "date",
+                      "userId"
+                    ],
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "example": "2026-02-24"
+                      },
+                      "userId": {
+                        "type": "number",
+                        "example": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Criar registro diario",
+        "tags": [
+          "Daily"
+        ]
+      },
+      "get": {
+        "operationId": "DailyController_getDailyByDateAndUserId",
+        "parameters": [
+          {
+            "name": "date",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "2026-02-24",
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Buscar diario por data e usuario",
+        "tags": [
+          "Daily"
+        ]
+      }
+    },
+    "/daily/{userId}": {
+      "get": {
+        "operationId": "DailyController_getAllDailiesByUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Listar todos os diarios de um usuario",
+        "tags": [
+          "Daily"
+        ]
+      }
+    },
+    "/user": {
+      "post": {
+        "operationId": "UserController_createUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "captchaToken"
+                ],
+                "additionalProperties": true,
+                "properties": {
+                  "captchaToken": {
+                    "type": "string",
+                    "example": "03AFcWe..."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Falha na validacao do reCAPTCHA"
+          }
+        },
+        "summary": "Criar novo usuario",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "operationId": "UserController_getUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Buscar usuario por ID",
+        "tags": [
+          "User"
+        ]
+      },
+      "put": {
+        "operationId": "UserController_updateUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Atualizar dados do usuario",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/invitation/{userId}": {
+      "post": {
+        "operationId": "InvitationController_createInvitation",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario admin",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "novo.usuario@example.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Criar convite (apenas ADMIN)",
+        "tags": [
+          "Invitation"
+        ]
+      },
+      "get": {
+        "operationId": "InvitationController_getAllUnusedInvitation",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario admin",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Listar convites nao utilizados (apenas ADMIN)",
+        "tags": [
+          "Invitation"
+        ]
+      }
+    },
+    "/invitation/{userId}/{token}": {
+      "put": {
+        "operationId": "InvitationController_markInvitationAsUsed",
+        "parameters": [
+          {
+            "name": "token",
+            "required": true,
+            "in": "path",
+            "description": "Token do convite",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario admin",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Marcar convite como utilizado (apenas ADMIN)",
+        "tags": [
+          "Invitation"
+        ]
+      }
+    },
+    "/peso/{userId}": {
+      "post": {
+        "operationId": "PesohistoricoController_createPesohistorico",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Criar registro de peso historico",
+        "tags": [
+          "Peso"
+        ]
+      },
+      "get": {
+        "operationId": "PesohistoricoController_getPesoHistoricosByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Listar historico de peso por usuario",
+        "tags": [
+          "Peso"
+        ]
+      }
+    },
+    "/peso/{userId}/{id}": {
+      "delete": {
+        "operationId": "PesohistoricoController_deletePesohistorico",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID do registro de peso",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Excluir registro de peso historico",
+        "tags": [
+          "Peso"
+        ]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password",
+                  "captchaToken"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "secret123"
+                  },
+                  "captchaToken": {
+                    "type": "string",
+                    "example": "03AFcWe..."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login realizado com sucesso"
+          },
+          "401": {
+            "description": "Credenciais ou captcha invalidos"
+          }
+        },
+        "summary": "Autenticar usuario e gerar token JWT",
+        "tags": [
+          "Auth"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "PPeso API",
+    "description": "Documentacao completa do backend PPeso",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {}
+  }
+}

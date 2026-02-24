@@ -8,6 +8,7 @@ import fastifyRateLimit from '@fastify/rate-limit';
 import fastifyHelmet from '@fastify/helmet';
 import { AllExceptionsFilter } from './utils/all-exceptions.filter';
 import { PrismaService } from './prisma/prisma.service';
+import { setupSwagger } from './swagger/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -31,6 +32,7 @@ async function bootstrap() {
   });
 
   app.useGlobalFilters(new AllExceptionsFilter());
+  setupSwagger(app);
 
   // 🟢 This is critical
   await app.init();
