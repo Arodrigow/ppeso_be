@@ -763,6 +763,156 @@
           "Auth"
         ]
       }
+    },
+    "/recipe/{userId}": {
+      "post": {
+        "operationId": "RecipeController_createRecipe",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "description",
+                  "recipe"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Panqueca de banana"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Cafe da manha rico em proteina"
+                  },
+                  "recipe": {
+                    "type": "string",
+                    "example": "2 ovos, 1 banana, 30g aveia. Misturar e grelhar por 3 minutos."
+                  },
+                  "calorias_kcal": {
+                    "type": "number",
+                    "example": 350
+                  },
+                  "carboidratos_g": {
+                    "type": "number",
+                    "example": 42.3
+                  },
+                  "proteinas_g": {
+                    "type": "number",
+                    "example": 18.5
+                  },
+                  "gorduras_g": {
+                    "type": "number",
+                    "example": 10.2
+                  },
+                  "fibras_g": {
+                    "type": "number",
+                    "example": 5.1
+                  },
+                  "sodio_mg": {
+                    "type": "number",
+                    "example": 120
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Criar receita do usuario",
+        "tags": [
+          "Recipe"
+        ]
+      },
+      "get": {
+        "operationId": "RecipeController_getRecipesByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Listar receitas do usuario",
+        "tags": [
+          "Recipe"
+        ]
+      }
+    },
+    "/recipe/{userId}/{recipeId}": {
+      "delete": {
+        "operationId": "RecipeController_deleteRecipe",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "recipeId",
+            "required": true,
+            "in": "path",
+            "description": "ID da receita",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Excluir receita do usuario",
+        "tags": [
+          "Recipe"
+        ]
+      }
     }
   },
   "info": {

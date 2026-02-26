@@ -32,6 +32,7 @@ model User {
   altura          Float
   atividade       Activity
   daily           Daily[]
+  recipes         Recipe[]
   token           String          @unique
   role            Role            @default(USER)
   regime_calorico RegimeGeral     @default(Leve)
@@ -40,6 +41,23 @@ model User {
   version         Int             @default(1)
   created_at      DateTime        @default(now())
   updated_at      DateTime        @updatedAt
+}
+
+model Recipe {
+  id             Int      @id @unique @default(autoincrement())
+  title          String
+  description    String
+  recipe         String
+  calorias_kcal  Float?
+  carboidratos_g Float?
+  proteinas_g    Float?
+  gorduras_g     Float?
+  fibras_g       Float?
+  sodio_mg       Float?
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 }
 
 model PesoHistorico {

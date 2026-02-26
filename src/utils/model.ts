@@ -12,7 +12,7 @@ export const chatGPT = async (data: string) => {
     let rawResponse = await client.chat.completions.create({
         messages: [
             { role: "system", content: gptSystemRole },
-            { role: "user", content: gptUserRole + JSON.stringify(data) }
+            { role: "user", content: `${gptUserRole}\n\nEntrada do usuario:\n${data}` }
         ],
         temperature: 1.0,
         top_p: 1.0,

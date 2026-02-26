@@ -9,8 +9,9 @@ import { UserModule } from './user/user.module';
 import { PesohistoricoModule } from './pesohistorico/pesohistorico.module';
 import { AuthModule } from './auth/auth.module';
 import { InvitationModule } from './invitation/invitation.module';
+import { RecipeModule } from './recipe/recipe.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), ModelModule, PrismaModule, ItemModule, MealModule, DailyModule, UserModule, PesohistoricoModule, AuthModule, InvitationModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), ModelModule, PrismaModule, ItemModule, MealModule, DailyModule, UserModule, PesohistoricoModule, AuthModule, InvitationModule, RecipeModule],
 })
 export class AppModule {}
