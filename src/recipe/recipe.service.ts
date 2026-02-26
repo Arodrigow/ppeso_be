@@ -32,6 +32,35 @@ export class RecipeService {
     }
   }
 
+  async getAllRecipes() {
+    try {
+      return await this.prismaService.recipe.findMany({
+        orderBy: { created_at: 'desc' },
+      });
+    } catch (error) {
+      throw new BadRequestException('Erro ao listar todas as receitas', { cause: error });
+    }
+  }
+
+  async getRecipeById(userId: number, recipeId: number) {
+    try {
+      const recipe = await this.prismaService.recipe.findFirst({
+        where: { id: recipeId, userId },
+      });
+
+      if (!recipe) {
+        throw new NotFoundException('Receita nao encontrada para este usuario');
+      }
+
+      return recipe;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new BadRequestException('Erro ao buscar receita', { cause: error });
+    }
+  }
+
   async deleteRecipe(userId: number, recipeId: number) {
     try {
       const recipe = await this.prismaService.recipe.findFirst({

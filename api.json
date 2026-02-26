@@ -875,7 +875,64 @@
         ]
       }
     },
+    "/recipe/all": {
+      "get": {
+        "operationId": "RecipeController_getAllRecipes",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Listar todas as receitas (ADMIN)",
+        "tags": [
+          "Recipe"
+        ]
+      }
+    },
     "/recipe/{userId}/{recipeId}": {
+      "get": {
+        "operationId": "RecipeController_getRecipeById",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "ID do usuario",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "recipeId",
+            "required": true,
+            "in": "path",
+            "description": "ID da receita",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Buscar receita especifica do usuario",
+        "tags": [
+          "Recipe"
+        ]
+      },
       "delete": {
         "operationId": "RecipeController_deleteRecipe",
         "parameters": [

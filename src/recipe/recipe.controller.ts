@@ -1,7 +1,9 @@
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
+import { Roles } from '@/auth/roles/roles.decorator';
+import { RolesGuard } from '@/auth/roles/roles.guard';
 import { UserMatchGuard } from '@/auth/user-auth.guard';
 import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, Role } from '@prisma/client';
 import { RecipeService } from './recipe.service';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 
@@ -42,12 +44,29 @@ export class RecipeController {
     return await this.recipeService.createRecipe(Number(userId), data);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @Get('all')
+  @ApiOperation({ summary: 'Listar todas as receitas (ADMIN)' })
+  async getAllRecipes() {
+    return await this.recipeService.getAllRecipes();
+  }
+
   @UseGuards(JwtAuthGuard, UserMatchGuard)
   @Get(':userId')
   @ApiOperation({ summary: 'Listar receitas do usuario' })
   @ApiParam({ name: 'userId', type: Number, description: 'ID do usuario' })
   async getRecipesByUserId(@Param('userId') userId: string) {
     return await this.recipeService.getRecipesByUserId(Number(userId));
+  }
+
+  @UseGuards(JwtAuthGuard, UserMatchGuard)
+  @Get(':userId/:recipeId')
+  @ApiOperation({ summary: 'Buscar receita especifica do usuario' })
+  @ApiParam({ name: 'userId', type: Number, description: 'ID do usuario' })
+  @ApiParam({ name: 'recipeId', type: Number, description: 'ID da receita' })
+  async getRecipeById(@Param('userId') userId: string, @Param('recipeId') recipeId: string) {
+    return await this.recipeService.getRecipeById(Number(userId), Number(recipeId));
   }
 
   @UseGuards(JwtAuthGuard, UserMatchGuard)
