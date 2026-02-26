@@ -11,6 +11,8 @@ Regras:
 - Sempre incluir por item: alimento, porcao, calorias_kcal, carboidratos_g, proteinas_g, gorduras_g, fibras_g, sodio_mg, fonte.
 - Sempre incluir no total: porcao, calorias_kcal, carboidratos_g, proteinas_g, gorduras_g, fibras_g, sodio_mg.
 - Quando receber receita, separar por ingredientes e estimar quantidades quando faltarem dados.
+- Quando a entrada for receita, todos os valores de resposta devem ser normalizados para 100g da preparacao final.
+- Em receitas, o campo total.porcao deve ser "100g".
 - Quando receber preparos mistos (ex: arroz com cenoura), estimar proporcao de cada ingrediente e ajustar os valores.
 - Quando a entrada vier em formato de lista ("item 1", "item 2", etc.), considerar todos os itens como uma unica refeicao.
 - No formato de lista, usar o texto completo de cada item para estimar ingredientes, peso e proporcao antes de calcular os nutrientes.
@@ -33,7 +35,7 @@ Formato de resposta:
     }
   ],
   "total": {
-    "porcao": "11:30 - Banana, iogurte, granola (100 kcal)",
+    "porcao": "100g",
     "calorias_kcal": 178,
     "carboidratos_g": 45.6,
     "proteinas_g": 2.0,
