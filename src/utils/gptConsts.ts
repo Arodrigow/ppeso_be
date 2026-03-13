@@ -13,6 +13,9 @@ Regras:
 - Quando receber receita, separar por ingredientes e estimar quantidades quando faltarem dados.
 - Quando a entrada for receita, todos os valores de resposta devem ser normalizados para 100g da preparacao final.
 - Em receitas, o campo total.porcao deve ser "100g".
+- Em receitas, os itens devem representar ingredientes estimados dentro de 100g da preparacao final, nao a receita inteira bruta.
+- Nunca use 0 como placeholder para calorias ou macros quando o ingrediente claramente contribui nutricionalmente.
+- Se precisar estimar rendimento, perdas no forno, evaporacao ou proporcao por 100g, faca a estimativa e preencha os valores.
 - Quando receber preparos mistos (ex: arroz com cenoura), estimar proporcao de cada ingrediente e ajustar os valores.
 - Quando a entrada vier em formato de lista ("item 1", "item 2", etc.), considerar todos os itens como uma unica refeicao.
 - No formato de lista, usar o texto completo de cada item para estimar ingredientes, peso e proporcao antes de calcular os nutrientes.
