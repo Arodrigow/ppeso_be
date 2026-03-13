@@ -59,6 +59,7 @@ const requestNutrition = async (
     client: OpenAI,
     model: string,
     temperature: number,
+    maxTokens: number,
     data: string,
     extraInstructions?: string,
 ) => {
@@ -72,7 +73,7 @@ const requestNutrition = async (
         ],
         temperature,
         top_p: 1.0,
-        max_tokens: 1000,
+        max_tokens: maxTokens,
         model: model
     });
 
@@ -97,10 +98,11 @@ export const chatGPT = async (data: string) => {
     const endpoint = process.env.OPENAI_BASE_URL ?? "https://models.github.ai/inference";
     const model = process.env.OPENAI_MODEL ?? "openai/gpt-4.1-mini";
     const temperature = Number(process.env.OPENAI_TEMPERATURE ?? '0.2');
+    const maxTokens = Number(process.env.OPENAI_MAX_TOKENS ?? '2500');
 
     const client = new OpenAI({ baseURL: endpoint, apiKey: token });
 
-    const firstAttempt = await requestNutrition(client, model, temperature, data);
+    const firstAttempt = await requestNutrition(client, model, temperature, maxTokens, data);
     if (isValidNutritionResponse(firstAttempt.parsed, data)) {
         return firstAttempt.parsed;
     }
@@ -114,6 +116,6 @@ export const chatGPT = async (data: string) => {
         'Nao use markdown nem comentarios.',
     ].join(' ');
 
-    const retryAttempt = await requestNutrition(client, model, temperature, data, retryInstructions);
+    const retryAttempt = await requestNutrition(client, model, temperature, maxTokens, data, retryInstructions);
     return retryAttempt.parsed;
 };
