@@ -58,6 +58,7 @@ const extractContent = (response: unknown) =>
 const requestNutrition = async (
     client: OpenAI,
     model: string,
+    temperature: number,
     data: string,
     extraInstructions?: string,
 ) => {
@@ -69,7 +70,7 @@ const requestNutrition = async (
                 content: `${gptUserRole}${extraInstructions ? `\n\nInstrucoes extras:\n${extraInstructions}` : ''}\n\nEntrada do usuario:\n${data}`
             }
         ],
-        temperature: 0.2,
+        temperature,
         top_p: 1.0,
         max_tokens: 1000,
         model: model
@@ -93,12 +94,13 @@ const requestNutrition = async (
 
 export const chatGPT = async (data: string) => {
     const token = process.env.OPENAI_API_KEY;
-    const endpoint = "https://models.github.ai/inference";
-    const model = "openai/gpt-4.1-mini";
+    const endpoint = process.env.OPENAI_BASE_URL ?? "https://models.github.ai/inference";
+    const model = process.env.OPENAI_MODEL ?? "openai/gpt-4.1-mini";
+    const temperature = Number(process.env.OPENAI_TEMPERATURE ?? '0.2');
 
     const client = new OpenAI({ baseURL: endpoint, apiKey: token });
 
-    const firstAttempt = await requestNutrition(client, model, data);
+    const firstAttempt = await requestNutrition(client, model, temperature, data);
     if (isValidNutritionResponse(firstAttempt.parsed, data)) {
         return firstAttempt.parsed;
     }
@@ -112,6 +114,6 @@ export const chatGPT = async (data: string) => {
         'Nao use markdown nem comentarios.',
     ].join(' ');
 
-    const retryAttempt = await requestNutrition(client, model, data, retryInstructions);
+    const retryAttempt = await requestNutrition(client, model, temperature, data, retryInstructions);
     return retryAttempt.parsed;
 };
