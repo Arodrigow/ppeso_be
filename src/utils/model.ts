@@ -94,11 +94,25 @@ const requestNutrition = async (
 };
 
 export const chatGPT = async (data: string) => {
-    const token = process.env.OPENAI_API_KEY;
-    const endpoint = process.env.OPENAI_BASE_URL ?? "https://models.github.ai/inference";
-    const model = process.env.OPENAI_MODEL ?? "openai/gpt-4.1-mini";
-    const temperature = Number(process.env.OPENAI_TEMPERATURE ?? '0.2');
-    const maxTokens = Number(process.env.OPENAI_MAX_TOKENS ?? '2500');
+    const token = process.env.GEMINI_API_KEY ?? process.env.OPENAI_API_KEY;
+    const endpoint =
+        process.env.GEMINI_BASE_URL ??
+        process.env.OPENAI_BASE_URL ??
+        "https://generativelanguage.googleapis.com/v1beta/openai/";
+    const model =
+        process.env.GEMINI_MODEL ??
+        process.env.OPENAI_MODEL ??
+        "gemini-3.5-flash-lite";
+    const temperature = Number(
+        process.env.GEMINI_TEMPERATURE ??
+        process.env.OPENAI_TEMPERATURE ??
+        '0.2'
+    );
+    const maxTokens = Number(
+        process.env.GEMINI_MAX_TOKENS ??
+        process.env.OPENAI_MAX_TOKENS ??
+        '2500'
+    );
 
     const client = new OpenAI({ baseURL: endpoint, apiKey: token });
 

@@ -7,11 +7,11 @@ export class ModelService {
 
     async getNutrition(data: string) {
 
-        try {            
+        try {
             return await chatGPT(data)
         } catch (error) {
-            this.logger.error(`Erro de comunicação com o ChatGPT: ${error.message}`, error.stack);
-            throw new BadRequestException('Erro de comunicação com o serviço de nutrição.', { cause: error, description: 'Não foi possível obter os dados nutricionais.' });
+            this.logger.error(`Erro de comunicacao com o modelo de IA: ${error.message}`, error.stack);
+            throw new BadRequestException('Erro de comunicacao com o servico de nutricao.', { cause: error, description: 'Nao foi possivel obter os dados nutricionais.' });
         }
     }
 }
